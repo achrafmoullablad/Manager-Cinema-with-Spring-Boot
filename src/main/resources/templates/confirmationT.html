@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+	layout:decorator="template1">
+
+<head>
+<meta charset="utf-8">
+<title>Form tickets</title>
+</head>
+<body>
+		<div layout:fragment="content">
+		<div class="container">
+			<div class="card">
+				<div class="card-header">Enregistrement effectue avec succes</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label> Reservation:</label> 
+					<strong><label th:text="${ticket.reservee}"></label></strong>
+
+					</div>
+						
+							</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

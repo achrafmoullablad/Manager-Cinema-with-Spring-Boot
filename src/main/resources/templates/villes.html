@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http ://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   
+ 
+     xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+
+   layout:decorator="template1"
+     >
+      
+<head>
+<meta charset="utf-8" />
+<title>Villes</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div th:replace="header :: navbar"></div>
+		<div class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading">gestion des villes </div>
+				<div class="panel-body">
+					<form method ="get" th:action="@{villes}">
+						<div>
+							<label>Name  : </label> <input type="text" name="keyword">
+							<button type="submit" class="btn btn-primary">Rechercher</button>
+				   <a class="btn btn-success" th:href="@{formVille}">Ajouter</a>
+						
+							
+   				</div>
+   					
+					</form>
+				
+					
+				</div>
+	     		
+    			
+		                                      <table class="table">	        
+		                                      
+		                                      
+		                                      
+			 <tr>                                    
+			 
+     <th>ID</th>
+     <th>NAME</th>
+      <th>CINEMAS</th>
+   </tr>
+  
+<tr th:each="p:${villes}">
+<td th:text="${p.id}"></td>
+<td th:text="${p.name}"></td>	
+
+  
+<td sec:authorize="hasRole('ROLE_ADMIN')" >
+  
+<a onclick ="return confirm('Etes vous sure voiloir supprimer'?)"
+class="btn btn-danger"  th:href="@{cinemas(idv= ${p.id})}"> Cinemas</a>
+
+
+
+    <a  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" th:href="@{editVille(id=${p.id})}">Edit</a>
+ 
+</td>
+
+
+    </tr>
+ 
+ </table>
+ 
+			</div>
+			<ul class="nav nav-pills">
+<li th:each="page,status:${pages}">
+   <a  th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+    th:href="@{villes(page=${status.index},keyword=${keyword},size=${size})}" th:text ="${status.index}"></a>
+   </li>
+</ul>	
+
+	
+</div>
+
+
+
+
+	</div>
+		
+ 
+	
+</body>
+</html>

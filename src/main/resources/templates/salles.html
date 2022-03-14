@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+
+	
+
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8" />
+<title>Salle</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div th:replace="header :: navbar"></div>
+		<div class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading">gestion des Salles </div>
+				<div class="panel-body">
+					<form method ="get" th:action="@{salles}">
+						<div>
+							<label>Name  : </label> <input type="text" name="keyword">
+							<button type="submit" class="btn btn-primary">Rechercher</button>
+							   <a class="btn btn-success" th:href="@{formSalle}">Ajouter</a>
+						
+							
+   				</div>
+   					
+					</form>
+				 
+					
+				</div>
+				
+				         <table class="table">
+				       	 <tr>
+     <th>NAME</th>
+     <th>Nombre des Places</th>
+       <th>Films</th>
+      <th></th>
+      
+   </tr>
+  
+  
+<tr th:each="s:${salles}">
+
+<td th:text="${s.name}"></td>	
+<td th:text="${s.nombrePlaces}"></td>	
+
+<td  sec:authorize="hasRole('ROLE_ADMIN')"  >
+  <a  class="btn btn-danger" th:href="@{films}">Films</a>
+  <a  sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-success" th:href="@{editSalle(id=${s.id})}">Edit</a>
+</td>
+
+
+
+    </tr>
+ </table>
+ 
+			</div>
+				<ul class="nav nav-pills">
+<li th:each="page,status:${pages}">
+   <a  th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+    th:href="@{salles(ids= ${s.id})}(page=${status.index},keyword=${keyword},size=${size})}" th:text ="${status.index}"></a>
+   </li>
+</ul>	
+			
+
+	
+</div>
+
+
+
+
+	</div>
+		
+ 
+	
+</body>
+</html>

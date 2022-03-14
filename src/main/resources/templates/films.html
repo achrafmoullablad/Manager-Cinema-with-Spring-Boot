@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	 
+
+
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8" />
+<title>Films</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div th:replace="header :: navbar"></div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">gestion des films</div>
+				<div class="panel-body">
+					<form method ="get" th:action="@{films}">
+						<div>
+							<label>Name  : </label> <input type="text" name="keyword">
+							<button type="submit" class="btn btn-primary">Rechercher</button>
+						
+					
+					
+							
+   				</div>
+   					
+					</form>
+				
+					
+				</div>
+	     		
+    		
+			 <table class="table">	        
+			 <tr>
+							<th>ID</th>
+							<th>titre</th>
+							<th>Duree</th>
+				
+							<th>Categorie</th>
+							<th>Images</th>
+							
+							
+							    <th>Projections</th>
+							
+						</tr>
+						
+  
+<tr th:each="p:${films}">
+							<td th:text="${p.id}"></td>
+							<td th:text="${p.titre}"></td>
+							
+							<td th:text="${p.duree}"></td>
+						
+						<td th:text="${p.categorie.name}"></td>
+							<td><img th:src="@{getPhoto(id=${p.id})}" width="100" height="100"/></td>
+   
+							<td  sec:authorize="hasRole('ROLE_ADMIN')" >
+										<a 
+ class="btn btn-danger"  th:href="@{projections(idf= ${p.id})}">Projections</a>
+	
+
+							
+    </tr>
+
+ </table>
+ 
+			</div>
+				<ul class="nav nav-pills">
+<li th:each="page,status:${pages}">
+   <a  th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+    th:href="@{films(page=${status.index} ,keyword=${keyword},size=${size})}" th:text ="${status.index}"></a>
+
+   </li>
+</ul>	
+			
+
+	
+</div>
+
+
+
+
+	</div>
+		
+ 
+	
+</body>
+</html>

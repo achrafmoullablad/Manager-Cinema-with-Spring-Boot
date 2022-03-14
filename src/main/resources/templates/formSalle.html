@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+	layout:decorator="template1">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" type="text/css"
+	href="../static/css/style.css"
+	th:href="@{/css/style.css}" />
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container mt-5">
+			<div class="col-md-6">
+				<div class="card ">
+					<div class="card-header" th:if="${salle.id==null}">Formulaire de saisie d une nouvelle Salle</div>
+						<div class="card-header" th:if="${salle.id!=null}">Formulaire de mise a jour d une nouvelle Salle</div>
+					<div class="card-body">
+						<form th:action="@{saveSalle}" method="post">
+						<div class="form-group">
+								<label class="control-Label">ID:</label>
+								<label class="control-Label" th:text="${salle.id}"></label>
+								 <input type="hidden"
+									name="id" class="form-control" th:value="${salle.id}">
+							</div>
+							
+							<div class="form-group">
+								<label class="control-Label">Name:</label> <input type="text"
+									name="name" class="form-control" th:value="${salle.name}">
+								<span th:errors=${salle.name} class="text-danger"></span>
+							</div>
+								<div class="form-group">
+								<label class="control-Label">Nb des places :</label> <input type="text"
+									name="nombrePlaces" class="form-control" th:value="${salle.nombrePlaces}">
+								<span th:errors=${salle.nombrePlaces} class="text-danger"></span>
+							</div>
+							
+							<button class="btn btn-success" type="submit">Save</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		</div>
+</body>
+</html>

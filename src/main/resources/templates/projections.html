@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+
+
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8" />
+<title>Cinemas</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div th:replace="header :: navbar"></div>
+		<div class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading">gestion des projections</div>
+				<div class="panel-body">
+					<form method ="get" th:action="@{projections}">
+					<div>
+							<label>Name  : </label> <input type="text" name="keyword">
+							<button type="submit" class="btn btn-primary">Rechercher</button>
+				<a class="btn btn-success" th:href="@{formpojection}">Ajouter</a>
+						
+							
+					
+						
+					
+							
+   				</div>
+   					
+					</form>
+				
+					
+				</div>
+	     		
+    			
+			 <table class="table">	
+			       
+			 <tr>
+	                              <th>ID</th>
+								<th>dateProjection</th>
+						
+							<th>prix</th>
+							
+							
+							    <th>Tickets</th>
+						
+						</tr>
+						
+  
+                       <tr th:each="p:${projections}">
+							<td th:text="${p.id}"></td>		
+							<td th:text="${p.seance.heureDebut}"></td>
+						
+							<td th:text="${p.prix}"></td>
+						
+							<td  sec:authorize="hasRole('ROLE_ADMIN')"  >
+										<a 
+class="btn btn-primary" th:href="@{tickets(idp= ${p.id})}">Tickets</a>
+						  <a class="btn btn-success"
+								th:href="@{editProjection(id=${p.id})}">Edit</a>
+	 
+</td>
+
+
+
+    </tr>
+ </table>
+ 
+			</div>
+				
+			
+
+	
+</div>
+
+
+
+
+	</div>
+		
+ 
+	
+</body>
+</html>

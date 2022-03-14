@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	    xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	
+	
+
+
+	layout:decorator="template1">
+<head>
+<meta charset="utf-8" />
+<title>Films</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div th:replace="header :: navbar"></div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">gestion des tickets</div>
+				<div class="panel-body">
+					<form method ="get" th:action="@{tickets}">
+						<div>
+							<label>Name  : </label> <input type="text" name="keyword">
+							<button type="submit" class="btn btn-primary">Rechercher</button>
+									 <a class="btn btn-success" th:href="@{formticket}">Ajouter</a>
+						
+					
+							
+   				</div>
+   					
+					</form>
+				
+					
+				</div>
+	     		
+    			
+			 <table class="table">	        
+			 <tr>
+							<th>ID</th>
+							<th>Nr place</th>
+								<th>Reservation</th>
+							<th>Prix de Ticket</th>
+						
+							
+						</tr>
+  
+<tr th:each="t:${tickets}">
+							<td th:text="${t.id}"></td>
+								<td th:text="${t.place.numero}"></td>
+							<td th:text="${t. reservee}"></td>
+							<td th:text="${t. prix}"></td>
+						
+							<td  sec:authorize="hasRole('ROLE_ADMIN')"  >
+							
+				
+					
+   
+					</td>
+
+   
+    </tr>
+ </table>
+ 
+			</div>
+				<ul class="nav nav-pills">
+<li th:each="page,status:${pages}">
+   <a  th:class="${status.index==currentPage?'btn btn-primary':'btn'}" 
+    th:href="@{tickets(page=${status.index} ,keyword=${keyword},size=${size})}" th:text ="${status.index}"></a>
+
+   </li>
+</ul>	
+			
+
+	
+</div>
+
+
+
+
+	</div>
+		
+ 
+	
+</body>
+</html>

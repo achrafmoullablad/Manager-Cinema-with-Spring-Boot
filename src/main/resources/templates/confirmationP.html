@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+
+	layout:decorator="template1">
+
+<head>
+<meta charset="utf-8">
+<title>Form Projections</title>
+</head>
+<body>
+		<div layout:fragment="content">
+		<div class="container">
+			<div class="card">
+				<div class="card-header">Enregistrement effectue avec succes</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label> prix :</label> 
+					<strong><label th:text="${projectionFilm.prix}"></label></strong>
+
+					</div>
+					<div class="form-group">
+						<label>dateProjection:</label> 
+					<strong><label th:text="${projectionFilm.dateProjection}"></label></strong>
+
+					</div>
+							</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
